@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UserfileToText</title>
+    <style>
+        form{
+            margin-top: 10pc;
+        }
+        #fullName{
+            margin: auto;
+            color: aliceblue;
+            border-width: 3px;
+            border-color: brown;
+            height: 2pc;
+
+        }
+        #message{
+            margin-top: 20px;
+            color: aliceblue;
+            border-width: 3px;
+            border-color: brown;
+            height: 4pc;
+            width: 25pc;
+
+        }
+        #submit{
+            background-color: black;
+            color: aliceblue;
+            border-width: 3px;
+            border-color: brown;
+            height: 2pc;
+            margin-left: 10pc;
+            margin-top: 20px;
+            width: 10em;
+
+        }
+
+    </style>
+</head>
+<body>
+    <form action="/message" method="post">
+        <Label>First Name:</Label>
+        <input type="text" name="Name" id="fullName" placeholder="enter your first name">
+       <br>
+        <label class="mess">Message</label>
+        <textarea name="message" id="message" cols="30" rows="10" placeholder="Say something"></textarea><br>
+        <input type="submit" id="submit" value="Submit" onclick="saveUserFile()">
+    </form>
+</body>
+<script>
+    function saveUserFile(){
+        var Fname = document.getElementById('fullName');
+        var text = document.getElementById('message');
+        var UserDate = Fname.value + ' ' + text.value;
+
+        var userInfoToBLOB = new Blob([UserDate], { type: 'text/plain' });
+        var UserFileName = 'forData.txt';
+
+        var newLink = document.createElement("a");
+        newLink.download =UserFileName;
+         UserFileName.href = window.webkitURL.createObjectURL(userInfoToBLOB);
+    
+         if (window.webkitURL != null) {
+            newLink.href = window.webkitURL.createObjectURL(userInfoToBLOB);
+        }
+        else {
+            newLink.href = window.URL.createObjectURL(userInfoToBLOB);
+            newLink.style.display = "none";
+            document.body.appendChild(newLink);
+        }
+ 
+        newLink.click();
+    }
+
+    
+</script>
+</html>
